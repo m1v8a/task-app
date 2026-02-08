@@ -5,16 +5,16 @@
 }
 
 :root {
-  --clr-0: hsl(35, 94%, 0%);
-  --clr-1: hsl(35, 94%, 10%);
-  --clr-2: hsl(35, 94%, 20%);
-  --clr-3: hsl(35, 94%, 30%);
-  --clr-4: hsl(35, 94%, 40%);
-  --clr-5: hsl(35, 94%, 50%);
-  --clr-7: hsl(35, 94%, 70%);
-  --clr-8: hsl(35, 94%, 80%);
-  --clr-9: hsl(35, 94%, 90%);
-  --clr-10: hsl(35, 94%, 100%);
+  --clr-0: hsl(24, 100%, 0%);
+  --clr-1: hsl(24, 100%, 10%);
+  --clr-2: hsl(24, 100%, 20%);
+  --clr-3: hsl(24, 100%, 30%);
+  --clr-4: hsl(24, 100%, 40%);
+  --clr-5: hsl(24, 100%, 50%);
+  --clr-7: hsl(24, 100%, 70%);
+  --clr-8: hsl(24, 100%, 80%);
+  --clr-9: hsl(24, 100%, 90%);
+  --clr-10: hsl(24, 100%, 100%);
 
   --size-1: 0.25rem;
   --size-2: 0.5rem;
@@ -55,6 +55,8 @@ button {
   background-color: var(--clr-0);
   padding: var(--size-2) var(--size-3);
   color: var(--clr-10);
+  min-width: 12ch;
+  border-radius: var(--size-1);
 }
 
 .border {
@@ -70,5 +72,5 @@ button {
   max-width: calc(10rem * 5);
   min-height: 100vh;
   margin: 0 auto;
-  border: 1px solid;
+  padding-block: var(--size-6);
 }
