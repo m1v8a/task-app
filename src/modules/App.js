@@ -3,12 +3,23 @@ import LS from "./LS.js";
 import PubSub from "./PubSub.js";
 
 export default class App {
+  static init() {
+    this.getAllTask();
+  }
+
   static createTask(props) {
     LS.update((data) => {
       const task = new Task(props);
       data.taskList.push(task);
       PubSub.pub("task-list-updated", data);
     });
+  }
+
+  static getAllTask() {
+    const returnedTaskList = LS.get((data) => {
+      return data.taskList;
+    });
+    PubSub.pub("task-list-received", { taskList: returnedTaskList });
   }
 
   static getTask(id) {

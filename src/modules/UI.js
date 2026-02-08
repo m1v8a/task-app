@@ -1,3 +1,4 @@
+import taskComp from "../components/task-section/taskComp.js";
 import PubSub from "./PubSub.js";
 
 export default class UI {
@@ -8,7 +9,7 @@ export default class UI {
       const dataset = e.target.dataset;
 
       // add Task
-      if (dataset.name === "add-task-button") {
+      if (dataset.name === "add-task-submit-button") {
         const props = { title: "Test", note: "test note" }; // test data
         PubSub.pub("add-task-event", props);
       }
@@ -20,11 +21,20 @@ export default class UI {
     });
   }
 
-  static displayTask(task) {
+  static displayTask({ task }) {
     console.log("TASK DISPLAYED: ", task);
   }
 
-  static displayAllTask(taskList) {
-    console.log("TASK_LIST DISPLAYED: ", taskList);
+  static displayAllTask({ taskList }) {
+    const container = document.querySelector("#task-list-container");
+    container.innerHTML = "";
+
+    if (taskList.length) {
+      taskList.forEach((task) => {
+        container.append(taskComp(task));
+      });
+    } else {
+      container.innerHTML = "<l1>No Task</li>";
+    }
   }
 }

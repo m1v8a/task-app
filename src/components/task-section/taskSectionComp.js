@@ -1,0 +1,13 @@
+import taskFormComp from "./taskFormComp.js";
+import taskListComp from "./taskListComp.js";
+
+export default function taskSectionComp() {
+  const container = document.createElement("section");
+
+  container.innerHTML = `
+    ${taskFormComp().outerHTML}
+    ${taskListComp().outerHTML}
+  `;
+
+  return container;
+}
