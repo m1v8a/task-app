@@ -6,6 +6,7 @@
 
 :root {
   --clr-0: hsl(24, 100%, 0%);
+  --clr-0-1: hsl(0 0%, 20%);
   --clr-1: hsl(24, 100%, 10%);
   --clr-2: hsl(24, 100%, 20%);
   --clr-3: hsl(24, 100%, 30%);
@@ -14,7 +15,8 @@
   --clr-7: hsl(24, 100%, 70%);
   --clr-8: hsl(24, 100%, 80%);
   --clr-9: hsl(24, 100%, 90%);
-  --clr-10: hsl(24, 100%, 100%);
+  --clr-10: hsl(0, 0%, 100%);
+  --clr-10-1: hsl(0, 0%, 90%);
 
   --size-1: 0.25rem;
   --size-2: 0.5rem;
@@ -40,6 +42,14 @@ textarea {
   padding: var(--size-2) var(--size-3);
 }
 
+input[type="radio"],
+input[type="checkbox"] {
+  accent-color: var(--clr-3);
+  font: inherit;
+  height: calc(var(--size-4) + 8px);
+  width: calc(var(--size-4) + 8px);
+}
+
 textarea {
   resize: none;
 }
@@ -59,6 +69,10 @@ button {
   border-radius: var(--size-1);
 }
 
+.btn:hover {
+  background-color: var(--clr-0-1);
+}
+
 .border {
   border: 1px solid var(--clr-8);
   border-radius: var(--size-1);
@@ -68,9 +82,25 @@ button {
   background-color: var(--clr-4);
 }
 
+.hidden {
+  display: none !important;
+}
+
 #root {
   max-width: calc(10rem * 5);
   min-height: 100vh;
   margin: 0 auto;
   padding-block: var(--size-6);
+}
+
+/* ICONS */
+.icon {
+  width: var(--size-4);
+}
+
+.pencil-icon {
+  fill: var(--clr-0);
+}
+.trash-icon {
+  fill: var(--clr-4);
 }

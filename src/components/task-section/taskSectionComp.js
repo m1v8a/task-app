@@ -5,6 +5,8 @@ import "./style.css";
 export default function taskSectionComp() {
   const container = document.createElement("section");
 
+  container.id = "task-section";
+
   container.innerHTML = `
     ${taskFormComp().outerHTML}
     ${taskListComp().outerHTML}

@@ -34,7 +34,7 @@ export default class App {
   }
 
   static updateTask(id, values) {
-    return LS.update((data) => {
+    LS.update((data) => {
       data.taskList = data.taskList.map((task) => {
         if (task.id === id) {
           return Object.assign(task, values);
@@ -44,7 +44,19 @@ export default class App {
       PubSub.pub("task-list-updated", data);
     });
   }
-  static deleteTask(id) {
+
+  static completeTask({ id }) {
+    LS.update((data) => {
+      data.taskList = data.taskList.map((task) => {
+        if (task.id === id) {
+          task.isCompleted = !task.isCompleted;
+        }
+        return task;
+      });
+      PubSub.pub("task-list-updated", data);
+    });
+  }
+  static deleteTask({ id }) {
     return LS.update((data) => {
       data.taskList = data.taskList.filter((task) => {
         return task.id !== id;

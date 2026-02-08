@@ -2,8 +2,15 @@
   display: flex;
   flex-direction: column;
   gap: var(--size-3);
-  border-bottom: 1px solid var(--clr-8);
-  padding-bottom: var(--size-3);
+
+  /* Task form */
+  & .task-form {
+    display: flex;
+    gap: var(--size-3);
+    flex-direction: column;
+    border-bottom: 1px solid var(--clr-8);
+    padding-bottom: var(--size-3);
+  }
 
   & .main-inputs {
     display: grid;
@@ -34,9 +41,84 @@
     gap: var(--size-3);
   }
 
-  & .task-buttons {
+  & .task-priority-input label {
     display: flex;
-    justify-content: end;
-    gap: var(--size-2);
+    align-items: center;
+    gap: var(--size-3);
+  }
+
+  /* Task List */
+  #task-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
+  }
+
+  /* Task Component */
+  & .task {
+    display: flex;
+    gap: var(--size-3);
+    align-items: center;
+  }
+
+  & .checkbox-cont {
+    flex-basis: var(--size-5);
+    display: grid;
+    place-content: center;
+  }
+
+  & .info-cont {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  & .info-cont .task-content {
+    display: grid;
+    gap: var(--size-1);
+  }
+
+  & .info-cont .task-content .task-title {
+    font-weight: bolder;
+    font-size: var(--size-4);
+    height: var(--size-4);
+  }
+
+  & .info-cont .task-content .task-note {
+    color: var(--clr-4);
+    height: var(--size-4);
+  }
+
+  & .buttons-cont {
+    position: relative;
+  }
+
+  & .option-button {
+    background-color: transparent;
+    min-width: 1px;
+    width: 4px;
+    display: grid;
+    place-content: center;
+
+    & svg {
+      user-select: none;
+      pointer-events: none;
+    }
+  }
+
+  & .option-popup {
+    position: absolute;
+    top: 50%;
+    right: 110%;
+    transform: translateY(-50%);
+    background-color: var(--clr-10);
+    display: flex;
+    gap: var(--size-3);
+    padding: var(--size-2) var(--size-3);
+
+    & svg {
+      user-select: none;
+      pointer-events: none;
+    }
   }
 }
