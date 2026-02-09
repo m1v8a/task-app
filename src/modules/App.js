@@ -22,7 +22,7 @@ export default class App {
     PubSub.pub("task-list-received", { taskList: returnedTaskList });
   }
 
-  static getTask(id) {
+  static getTask({ id }) {
     const returnedTask = LS.get((data) => {
       const taskList = data.taskList;
       for (let i = 0; taskList.length; i++) {
@@ -31,9 +31,10 @@ export default class App {
       }
     });
     PubSub.pub("task-received", { task: returnedTask });
+    return returnedTask;
   }
 
-  static updateTask(id, values) {
+  static updateTask({ id, values }) {
     LS.update((data) => {
       data.taskList = data.taskList.map((task) => {
         if (task.id === id) {

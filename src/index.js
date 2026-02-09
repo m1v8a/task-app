@@ -20,6 +20,7 @@ PubSub.subscriptions({
   "delete-task-event": App.deleteTask,
   "update-task-event": App.updateTask,
   "complete-task-event": App.completeTask,
+  "get-task-event": App.getTask,
 });
 UI.initEventListeners();
 App.init();

@@ -8,7 +8,7 @@ export default function taskSectionComp() {
   container.id = "task-section";
 
   container.innerHTML = `
-    ${taskFormComp().outerHTML}
+    ${taskFormComp({ mode: "create" }).outerHTML}
     ${taskListComp().outerHTML}
   `;
 

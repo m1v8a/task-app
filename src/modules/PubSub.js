@@ -14,7 +14,11 @@ export default class PubSub {
 
   static pub(event, ...args) {
     if (!this.#events[event]) console.warn(`Event: ${event}, does not exist`);
-    this.#events[event].forEach((fn) => fn(...args));
+    const returnValues = [];
+    this.#events[event].forEach((fn) => {
+      returnValues.push(fn(...args));
+    });
+    return returnValues;
   }
 
   static subscriptions(events) {

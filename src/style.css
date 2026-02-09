@@ -91,6 +91,7 @@ button {
   min-height: 100vh;
   margin: 0 auto;
   padding-block: var(--size-6);
+  position: relative;
 }
 
 /* ICONS */
@@ -103,4 +104,57 @@ button {
 }
 .trash-icon {
   fill: var(--clr-4);
+}
+
+/* Task form */
+.task-form {
+  display: flex;
+  gap: var(--size-3);
+  flex-direction: column;
+  border-bottom: 1px solid var(--clr-8);
+  padding-bottom: var(--size-3);
+
+  & .main-inputs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: "title title title due" "note note note note";
+    gap: var(--size-1);
+  }
+
+  & .task-title-input {
+    grid-area: title;
+  }
+
+  & .task-note-input {
+    grid-area: due;
+  }
+
+  & .task-note-input {
+    grid-area: note;
+  }
+
+  & .second-inputs {
+    display: flex;
+  }
+
+  & .task-priority-input {
+    display: flex;
+    gap: var(--size-3);
+  }
+
+  & .task-priority-input label {
+    display: flex;
+    align-items: center;
+    gap: var(--size-3);
+  }
+}
+#task-edit-form {
+  position: absolute;
+  border: 1px solid var(--clr-8);
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--size-2) var(--size-3);
+  background-color: var(--clr-10);
 }
