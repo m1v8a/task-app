@@ -1,3 +1,4 @@
+import Project from "../classes/Project.js";
 import Task from "../classes/Task.js";
 import LS from "./LS.js";
 import PubSub from "./PubSub.js";
@@ -57,12 +58,20 @@ export default class App {
       PubSub.pub("task-list-updated", data);
     });
   }
+
   static deleteTask({ id }) {
-    return LS.update((data) => {
+    LS.update((data) => {
       data.taskList = data.taskList.filter((task) => {
         return task.id !== id;
       });
       PubSub.pub("task-list-updated", data);
+    });
+  }
+
+  static createProject({ name }) {
+    LS.update((data) => {
+      data.projects.push(new Project({ name }));
+      PubSub.pub("project-list-updated", data);
     });
   }
 }

@@ -1,9 +1,17 @@
+import Project from "../classes/Project.js";
+
 export default class LS {
   static #APP = "task-app";
 
   static initStorage() {
     if (!localStorage.getItem(this.#APP)) {
-      localStorage.setItem(this.#APP, JSON.stringify({ taskList: [] }));
+      localStorage.setItem(
+        this.#APP,
+        JSON.stringify({
+          taskList: [],
+          projectList: [new Project({ name: "All", id: "default" })],
+        })
+      );
     }
   }
   static update(fn) {
