@@ -19,6 +19,7 @@ PubSub.subscriptions({
   "add-project-event": ({ name }) => App.createProject({ name }),
   "activate-project-event": ({ id }) => App.activateProject({ id }),
   "delete-task-event": ({ id }) => App.deleteTask({ id }),
+  "delete-project-event": ({ id }) => App.deleteProject({ id }),
   "update-task-event": ({ id, values }) => App.updateTask({ id, values }),
   "complete-task-event": ({ id }) => App.completeTask({ id }),
   "get-task-event": App.getTask,

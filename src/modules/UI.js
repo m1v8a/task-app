@@ -77,6 +77,11 @@ export default class UI {
           .classList.toggle("hidden");
       }
 
+      // delete project
+      if (dataset.name === "project-delete-button") {
+        PubSub.pub("delete-project-event", { id: dataset.id });
+      }
+
       // activate project
       if (dataset.name === "project-activate-button") {
         PubSub.pub("activate-project-event", { id: dataset.id });

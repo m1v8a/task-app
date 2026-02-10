@@ -4,6 +4,12 @@ export default function projectComp(project) {
   const container = document.createElement("li");
   const { name, id, isActive } = project;
 
+  const deleteButton = `
+    <a href="#" data-name="project-delete-button" data-id="${id}">
+      ${trashIcon}
+    </a>
+  `;
+
   container.className = `project ${isActive ? "active" : ""}`;
   container.dataset.id = id;
   container.dataset.name = "project-activate-button";
@@ -14,17 +20,7 @@ export default function projectComp(project) {
       </div>
     </div>
     <div class="buttons-cont">
-      <a href="#" class="option-button" data-name="project-option-button" data-id="${id}">
-          ${ellipisVerticalIcon}
-      </a>
-      <div class="project-option-popup hidden" data-id="${id}">
-        <a href="#" data-name="project-edit-button" data-id=${id}>
-            ${pencilIcon}
-        </a>
-        <a href="#" data-name="project-delete-button" data-id="${id}">
-            ${trashIcon}
-        </a>
-      </div>
+      ${id !== "default" ? deleteButton : ""}
     </div>
   `;
 

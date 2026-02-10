@@ -1,6 +1,5 @@
 import Project from "../classes/Project.js";
 import Task from "../classes/Task.js";
-import filterTaskListByActiveProject from "../helpers/filterTaskListByActiveProject.js";
 import LS from "./LS.js";
 import PubSub from "./PubSub.js";
 
@@ -19,7 +18,7 @@ export default class App {
       data.taskList.push(task);
       PubSub.pub("task-list-updated", {
         ...data,
-        taskList: filterTaskListByActiveProject(data),
+        taskList: this.#filterTaskListByActiveProject(data),
       });
     });
   }
@@ -29,7 +28,7 @@ export default class App {
       return data;
     });
     PubSub.pub("task-list-received", {
-      taskList: filterTaskListByActiveProject({ projectList, taskList }),
+      taskList: this.#filterTaskListByActiveProject({ projectList, taskList }),
     });
   }
 
@@ -67,7 +66,7 @@ export default class App {
       });
       PubSub.pub("task-list-updated", {
         ...data,
-        taskList: filterTaskListByActiveProject(data),
+        taskList: this.#filterTaskListByActiveProject(data),
       });
     });
   }
@@ -79,7 +78,7 @@ export default class App {
       });
       PubSub.pub("task-list-updated", {
         ...data,
-        taskList: filterTaskListByActiveProject(data),
+        taskList: this.#filterTaskListByActiveProject(data),
       });
     });
   }
@@ -93,6 +92,20 @@ export default class App {
     });
 
     this.activateProject({ id: project.id });
+  }
+
+  static deleteProject({ id }) {
+    LS.update((data) => {
+      data.projectList = data.projectList.filter((project) => {
+        return project.id !== id;
+      });
+      data.taskList = data.taskList.filter((task) => {
+        return task.projectId !== id;
+      });
+      PubSub.pub("project-list-updated", data);
+    });
+
+    this.activateProject({ id: "default" });
   }
 
   static getAllProject() {
@@ -114,8 +127,20 @@ export default class App {
       PubSub.pub("project-list-updated", data);
       PubSub.pub("task-list-updated", {
         ...data,
-        taskList: filterTaskListByActiveProject(data),
+        taskList: this.#filterTaskListByActiveProject(data),
       });
+    });
+  }
+  static #filterTaskListByActiveProject({ projectList, taskList }) {
+    const activeProject = projectList.filter((project) => {
+      return project.isActive;
+    })[0];
+    if (activeProject.id === "default") {
+      return taskList;
+    }
+
+    return taskList.filter((task) => {
+      return task.projectId === activeProject.id;
     });
   }
 }

@@ -59,6 +59,10 @@ ol {
   list-style: none;
 }
 
+a > svg {
+  pointer-events: none;
+}
+
 .btn,
 button {
   border: none;
