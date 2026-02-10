@@ -87,11 +87,23 @@ button {
 }
 
 #root {
-  max-width: calc(10rem * 5);
+  max-width: calc(var(--size-7) * 7);
   min-height: 100vh;
   margin: 0 auto;
   padding-block: var(--size-6);
   position: relative;
+
+  display: flex;
+  justify-content: space-between;
+  gap: var(--size-3);
+
+  > *:first-child {
+    width: 30%;
+  }
+
+  > *:last-child {
+    width: 70%;
+  }
 }
 
 /* ICONS */

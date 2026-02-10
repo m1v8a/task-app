@@ -1,5 +1,3 @@
-import taskComp from "./taskComp.js";
-
 export default function taskListComp() {
   const container = document.createElement("ul");
   container.id = "task-list-container";

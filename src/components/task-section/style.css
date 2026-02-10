@@ -59,7 +59,7 @@
     }
   }
 
-  & .option-popup {
+  & .task-option-popup {
     position: absolute;
     top: 50%;
     right: 110%;

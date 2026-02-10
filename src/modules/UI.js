@@ -1,3 +1,4 @@
+import projectComp from "../components/project-section/projectComp.js";
 import taskComp from "../components/task-section/taskComp.js";
 import taskFormComp from "../components/task-section/taskFormComp.js";
 import App from "./App.js";
@@ -15,7 +16,7 @@ export default class UI {
       // add Task
       if (dataset.name === "add-task-submit") {
         e.preventDefault();
-        const props = getInputValues(document);
+        const props = getTaskFormInputValues(document);
         PubSub.pub("add-task-event", props);
       }
 
@@ -24,10 +25,10 @@ export default class UI {
         PubSub.pub("complete-task-event", { id: dataset.id });
       }
 
-      // option button
+      // open the task's option menu
       if (dataset.name === "task-option-button") {
         document
-          .querySelector(`.option-popup[data-id="${dataset.id}"]`)
+          .querySelector(`.task-option-popup[data-id="${dataset.id}"]`)
           .classList.toggle("hidden");
       }
 
@@ -36,7 +37,7 @@ export default class UI {
         PubSub.pub("delete-task-event", { id: dataset.id });
       }
 
-      // open task for for editting
+      // open task form for editing
       if (dataset.name === "task-edit-button") {
         const task = App.getTask({ id: dataset.id });
         const taskForm = taskFormComp({ mode: "edit", task });
@@ -48,7 +49,7 @@ export default class UI {
       if (dataset.name === "task-edit-submit") {
         e.preventDefault();
         const taskForm = document.querySelector("#task-edit-form");
-        const props = getInputValues(taskForm);
+        const props = getTaskFormInputValues(taskForm);
         PubSub.pub("update-task-event", { id: dataset.id, values: props });
         taskForm.remove();
       }
@@ -58,9 +59,31 @@ export default class UI {
         const taskForm = document.querySelector("#task-edit-form");
         taskForm.remove();
       }
+
+      // add project
+      if (dataset.name === "project-create-submit") {
+        e.preventDefault();
+        const name = document.querySelector(
+          'input[name="project-name-input"]'
+        ).value;
+
+        PubSub.pub("add-project-event", { name });
+      }
+
+      // open project's option menu
+      if (dataset.name === "project-option-button") {
+        document
+          .querySelector(`.project-option-popup[data-id="${dataset.id}"]`)
+          .classList.toggle("hidden");
+      }
+
+      // activate project
+      if (dataset.name === "project-activate-button") {
+        PubSub.pub("activate-project-event", { id: dataset.id });
+      }
     });
 
-    function getInputValues(inputsParent) {
+    function getTaskFormInputValues(inputsParent) {
       const props = {
         title: inputsParent.querySelector('input[name="task-title-input"]')
           .value,
@@ -87,12 +110,23 @@ export default class UI {
     const container = document.querySelector("#task-list-container");
     container.innerHTML = "";
 
-    if (taskList.length) {
+    if (taskList && taskList.length) {
       taskList.forEach((task) => {
         container.append(taskComp(task));
       });
     } else {
       container.innerHTML = "<l1>No Task</li>";
+    }
+  }
+
+  static displayAllProject({ projectList }) {
+    const container = document.querySelector("#project-list-container");
+    container.innerHTML = "";
+
+    if (projectList && projectList.length) {
+      projectList.forEach((project) => {
+        container.append(projectComp(project));
+      });
     }
   }
 }

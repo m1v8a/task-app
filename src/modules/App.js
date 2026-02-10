@@ -6,6 +6,7 @@ import PubSub from "./PubSub.js";
 export default class App {
   static init() {
     this.getAllTask();
+    this.getAllProject();
   }
 
   static createTask(props) {
@@ -17,10 +18,10 @@ export default class App {
   }
 
   static getAllTask() {
-    const returnedTaskList = LS.get((data) => {
+    const taskList = LS.get((data) => {
       return data.taskList;
     });
-    PubSub.pub("task-list-received", { taskList: returnedTaskList });
+    PubSub.pub("task-list-received", { taskList });
   }
 
   static getTask({ id }) {
@@ -70,7 +71,27 @@ export default class App {
 
   static createProject({ name }) {
     LS.update((data) => {
-      data.projects.push(new Project({ name }));
+      data.projectList.push(new Project({ name }));
+      PubSub.pub("project-list-updated", data);
+    });
+  }
+
+  static getAllProject() {
+    const projectList = LS.get((data) => {
+      return data.projectList;
+    });
+    PubSub.pub("project-list-received", { projectList });
+  }
+
+  static activateProject({ id }) {
+    LS.update((data) => {
+      data.projectList = data.projectList.map((project) => {
+        project.isActive = false;
+        if (project.id === id) {
+          project.isActive = true;
+        }
+        return project;
+      });
       PubSub.pub("project-list-updated", data);
     });
   }

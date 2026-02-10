@@ -31,7 +31,7 @@ export default function taskComp(task) {
       <a href="#" class="option-button" data-name="task-option-button" data-id="${id}">
           ${ellipisVerticalIcon}
       </a>
-      <div class="option-popup hidden" data-id="${id}">
+      <div class="task-option-popup hidden" data-id="${id}">
         <a href="#" data-name="task-edit-button" data-id=${id}>
             ${pencilIcon}
         </a>
