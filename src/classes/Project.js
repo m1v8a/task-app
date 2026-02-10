@@ -1,7 +1,7 @@
 export default class Project {
-  constructor({ name, id = crypto.randomUUID() }) {
+  constructor({ name, id = crypto.randomUUID(), isActive = false }) {
     this.name = name;
     this.id = id;
-    this.isActive = false;
+    this.isActive = isActive;
   }
 }

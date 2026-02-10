@@ -9,7 +9,9 @@ export default class LS {
         this.#APP,
         JSON.stringify({
           taskList: [],
-          projectList: [new Project({ name: "All", id: "default" })],
+          projectList: [
+            new Project({ name: "All", id: "default", isActive: true }),
+          ],
         })
       );
     }

@@ -1,5 +1,6 @@
 import Project from "../classes/Project.js";
 import Task from "../classes/Task.js";
+import filterTaskListByActiveProject from "../helpers/filterTaskListByActiveProject.js";
 import LS from "./LS.js";
 import PubSub from "./PubSub.js";
 
@@ -11,9 +12,15 @@ export default class App {
 
   static createTask(props) {
     LS.update((data) => {
-      const task = new Task(props);
+      const activeProject = data.projectList.filter((project) => {
+        return project.isActive;
+      })[0];
+      const task = new Task({ ...props, projectId: activeProject.id });
       data.taskList.push(task);
-      PubSub.pub("task-list-updated", data);
+      PubSub.pub("task-list-updated", {
+        ...data,
+        taskList: filterTaskListByActiveProject(data),
+      });
     });
   }
 
@@ -56,7 +63,10 @@ export default class App {
         }
         return task;
       });
-      PubSub.pub("task-list-updated", data);
+      PubSub.pub("task-list-updated", {
+        ...data,
+        taskList: filterTaskListByActiveProject(data),
+      });
     });
   }
 
@@ -65,7 +75,10 @@ export default class App {
       data.taskList = data.taskList.filter((task) => {
         return task.id !== id;
       });
-      PubSub.pub("task-list-updated", data);
+      PubSub.pub("task-list-updated", {
+        ...data,
+        taskList: filterTaskListByActiveProject(data),
+      });
     });
   }
 
@@ -93,6 +106,10 @@ export default class App {
         return project;
       });
       PubSub.pub("project-list-updated", data);
+      PubSub.pub("task-list-updated", {
+        ...data,
+        taskList: filterTaskListByActiveProject(data),
+      });
     });
   }
 }
