@@ -10,17 +10,17 @@ document.querySelector("#root").append(projectSectionComp(), taskSectionComp());
 
 LS.initStorage();
 PubSub.subscriptions({
-  "task-list-updated": UI.displayAllTask,
-  "project-list-updated": UI.displayAllProject,
-  "task-received": UI.displayTask,
-  "task-list-received": UI.displayAllTask,
-  "project-list-received": UI.displayAllProject,
-  "add-task-event": App.createTask,
-  "add-project-event": App.createProject,
-  "activate-project-event": App.activateProject,
-  "delete-task-event": App.deleteTask,
-  "update-task-event": App.updateTask,
-  "complete-task-event": App.completeTask,
+  "task-list-updated": (data) => UI.displayAllTask(data),
+  "project-list-updated": (data) => UI.displayAllProject(data),
+  "task-received": ({ task }) => UI.displayTask({ task }),
+  "task-list-received": (data) => UI.displayAllTask(data),
+  "project-list-received": (data) => UI.displayAllProject(data),
+  "add-task-event": (props) => App.createTask(props),
+  "add-project-event": ({ name }) => App.createProject({ name }),
+  "activate-project-event": ({ id }) => App.activateProject({ id }),
+  "delete-task-event": ({ id }) => App.deleteTask({ id }),
+  "update-task-event": ({ id, values }) => App.updateTask({ id, values }),
+  "complete-task-event": ({ id }) => App.completeTask({ id }),
   "get-task-event": App.getTask,
 });
 UI.initEventListeners();

@@ -25,10 +25,12 @@ export default class App {
   }
 
   static getAllTask() {
-    const taskList = LS.get((data) => {
-      return data.taskList;
+    const { taskList, projectList } = LS.get((data) => {
+      return data;
     });
-    PubSub.pub("task-list-received", { taskList });
+    PubSub.pub("task-list-received", {
+      taskList: filterTaskListByActiveProject({ projectList, taskList }),
+    });
   }
 
   static getTask({ id }) {
@@ -83,10 +85,14 @@ export default class App {
   }
 
   static createProject({ name }) {
+    const project = new Project({ name });
+
     LS.update((data) => {
-      data.projectList.push(new Project({ name }));
+      data.projectList.push(project);
       PubSub.pub("project-list-updated", data);
     });
+
+    this.activateProject({ id: project.id });
   }
 
   static getAllProject() {
